@@ -3,13 +3,12 @@ package pixel
 import (
 	"errors"
 	"fmt"
-	"os"
-
 	"github.com/BurntSushi/xgb"
 	"github.com/BurntSushi/xgb/xproto"
 	"github.com/BurntSushi/xgbutil"
 	"github.com/BurntSushi/xgbutil/ewmh"
 	"github.com/BurntSushi/xgbutil/icccm"
+	"os"
 )
 
 const (
@@ -19,10 +18,20 @@ const (
 func getFocusedWindow(X *xgbutil.XUtil) (xproto.Window, error) {
 	// Get the currently focused window ID
 	activeWindow, err := ewmh.ActiveWindowGet(X)
+	fmt.Println(activeWindow)
 	if err != nil {
 		return 0, err
 	}
 	return activeWindow, nil
+}
+
+func isInSlice(value string, slice []string) bool {
+	for _, v := range slice {
+		if v == value {
+			return true
+		}
+	}
+	return false
 }
 
 func getWMClass(X *xgbutil.XUtil, windowID xproto.Window) (string, string, error) {
@@ -88,9 +97,10 @@ func getActiveWindow(root xproto.Window) (xproto.Window, error) {
 	}
 	fmt.Println(className, instanceName)
 
-	if className == "kitty" {
+	classNames := []string{"konsole", "org.wezfurlong.wezterm", "Alacritty", "kitty"}
+
+	if isInSlice(className, classNames) {
 		fmt.Println(focusedWindow)
-		fmt.Println(xproto.Window(xgb.Get32(r.Value)))
 		return xproto.Window(xgb.Get32(r.Value)), nil
 	}
 	return 0, errors.New("Terminal Not Support")
