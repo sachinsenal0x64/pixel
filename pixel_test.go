@@ -1,7 +1,6 @@
 package pixel
 
 import (
-	"github.com/nfnt/resize"
 	"image"
 	_ "image/jpeg"
 	"io"
@@ -10,10 +9,12 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/nfnt/resize"
 )
 
 func TestImage(t *testing.T) {
-	img1, err := getImage("https://golang.org/doc/gopher/pencil/gophermega.jpg")
+	img1, err := getImage("https://investnews.com.br/wp-content/uploads/2021/06/doge-1200x800.jpg")
 	if err != nil {
 		t.Fatal(err)
 	}
