@@ -1,10 +1,7 @@
 package pixel
 
 import (
-<<<<<<< HEAD
-=======
 	"fmt"
->>>>>>> 9706b70 (Lot of Bug Fixes)
 	"image"
 	_ "image/jpeg"
 	"io"
@@ -14,11 +11,8 @@ import (
 	"testing"
 	"time"
 
-<<<<<<< HEAD
-=======
 	"github.com/BurntSushi/xgbutil"
 	"github.com/BurntSushi/xgbutil/ewmh"
->>>>>>> 9706b70 (Lot of Bug Fixes)
 	"github.com/nfnt/resize"
 )
 
@@ -38,11 +32,8 @@ func appendToFile(filename, content string) error {
 }
 
 func TestImage(t *testing.T) {
-<<<<<<< HEAD
 	img1, err := getImage("https://investnews.com.br/wp-content/uploads/2021/06/doge-1200x800.jpg")
-=======
 	X, err := xgbutil.NewConn()
->>>>>>> 9706b70 (Lot of Bug Fixes)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -57,12 +48,11 @@ func TestImage(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	img1, err := getImage("https://investnews.com.br/wp-content/uploads/2021/06/doge-1200x800.jpg")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	img2, err := getImage("_testdata/go.jpg")
+	img2, err := getImage("_testdata/go.png")
 	if err != nil {
 		t.Fatal(err)
 	}

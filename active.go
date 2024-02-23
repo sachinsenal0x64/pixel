@@ -81,7 +81,6 @@ func getWMClass(X *xgbutil.XUtil, windowID xproto.Window) (string, string, error
 }
 
 func getActiveWindow(root xproto.Window) (xproto.Window, error) {
-	fmt.Println("im starting bad boy")
 
 	X, err := xgbutil.NewConn()
 
