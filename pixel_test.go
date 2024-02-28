@@ -16,23 +16,7 @@ import (
 	"github.com/nfnt/resize"
 )
 
-func appendToFile(filename, content string) error {
-	file, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = fmt.Fprintln(file, content)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func TestImage(t *testing.T) {
-	img1, err := getImage("https://investnews.com.br/wp-content/uploads/2021/06/doge-1200x800.jpg")
 	X, err := xgbutil.NewConn()
 	if err != nil {
 		t.Fatal(err)
@@ -43,10 +27,12 @@ func TestImage(t *testing.T) {
 	activeWindow, err := ewmh.ActiveWindowGet(X)
 
 	// Overwrite the contents of "output.txt" with the new active window ID
-	err = os.WriteFile("output.txt", []byte(fmt.Sprintf("%d", activeWindow)), 0644)
+	err = os.WriteFile("/tmp/pixel_output.txt", []byte(fmt.Sprintf("%d", activeWindow)), 0644)
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	img1, err := getImage("https://investnews.com.br/wp-content/uploads/2021/06/doge-1200x800.jpg")
 
 	if err != nil {
 		t.Fatal(err)
@@ -57,24 +43,22 @@ func TestImage(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	j, err := NewImage(img2, 300, 50)
-	if err != nil {
-		t.Fatal(err)
-	}
-
 	i, err := NewImage(img1, 700, 50)
 	if err != nil {
 		t.Fatal(err)
 	}
 
+	j, err := NewImage(img2, 300, 50)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	time.Sleep(100 * time.Second)
+
 	defer i.Clear()
-
-	time.Sleep(time.Second * 8)
-
 	defer i.Destroy()
 
 	defer j.Clear()
-	time.Sleep(time.Second * 8)
 	defer j.Destroy()
 
 }

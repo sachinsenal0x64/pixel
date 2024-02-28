@@ -144,7 +144,7 @@ func getActiveWindow(root xproto.Window) (xproto.Window, error) {
 
 	fmt.Println("Window PIDs:", pids)
 
-	content, err := os.ReadFile("output.txt")
+	content, err := os.ReadFile("/tmp/pixel_output.txt")
 
 	trimmedContent := strings.TrimSpace(string(content))
 
