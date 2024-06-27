@@ -15,6 +15,6 @@ cd pixel
 
 go mod tidy
 
-go run test
+go test
 
 ```
